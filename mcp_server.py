@@ -13,6 +13,18 @@ docs = {
 }
 
 # TODO: Write a tool to read a doc
+@mcp.tool(
+    name="read_doc_contents",
+    description="Read the contents of a document and return it as a string.",
+    args={"doc_id": "The ID of the document to read."},
+)
+def read_documents():
+    doc_id = mcp.args["doc_id"]
+    if doc_id in docs:
+        return docs[doc_id]
+    else:
+        return f"Document with ID '{doc_id}' not found."
+ 
 # TODO: Write a tool to edit a doc
 # TODO: Write a resource to return all doc id's
 # TODO: Write a resource to return the contents of a particular doc
