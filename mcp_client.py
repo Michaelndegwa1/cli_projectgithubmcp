@@ -81,9 +81,13 @@ async def main():
         command="uv",
         args=["run", "python", "mcp_server.py"],
     ) as _client:
-        result= await _client.list_tools()
+        result = await _client.list_tools()
         print(result)
-        
+
+    # Allow the event loop to drain subprocess transports before shutdown.
+    # This suppresses the 'unclosed transport' ResourceWarning on Windows.
+    await asyncio.sleep(0.25)
+
 
 
 
