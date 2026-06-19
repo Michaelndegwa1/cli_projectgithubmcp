@@ -46,10 +46,9 @@ class MCPClient:
         return result.tools
 
     async def call_tool(
-        self, tool_name: str, tool_input: dict
-    ) -> types.CallToolResult | None:
+    self, tool_name: str, tool_input: dict
+) -> types.CallToolResult | None:
         return await self.session().call_tool(tool_name, tool_input)
-
     async def list_prompts(self) -> list[types.Prompt]:
         # TODO: Return a list of prompts defined by the MCP server
         return []
@@ -77,9 +76,10 @@ class MCPClient:
 # For testing
 async def main():
     async with MCPClient(
-        # If using Python without UV, update command to 'python' and remove "run" from args.
-        command="python",
-        args=["-u","mcp_server.py"],
+        # Uses UV to launch the server subprocess. If not using UV, change to:
+        # command="python", args=["mcp_server.py"]
+        command="uv",
+        args=["run", "python", "mcp_server.py"],
     ) as _client:
         result= await _client.list_tools()
         print(result)
